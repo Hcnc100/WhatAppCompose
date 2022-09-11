@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.d34th.nullpointer.whatsappcompose.ui.screens.signInScreen.SignInScreen
+import com.d34th.nullpointer.whatsappcompose.ui.screens.phoneInputScreen.PhoneInputScreen
 import com.d34th.nullpointer.whatsappcompose.ui.theme.WhatsAppComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    SignInScreen()
+                    PhoneInputScreen()
                 }
             }
         }

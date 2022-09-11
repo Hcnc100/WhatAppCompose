@@ -53,6 +53,10 @@ class PropertySavableString(
         }
     }
 
+    fun reValueString() {
+        changeValue(this.value)
+    }
+
     fun clearValue() {
         value = ""
         errorValue = RESOURCE_DEFAULT

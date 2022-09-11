@@ -1,7 +1,20 @@
 <resources>
     <string name="app_name">WhatsAppCompose</string>
+
+    <!-- toolbar -->
     <string name="description_arrow_back">Navegar a la pantalla anterior</string>
     <string name="description_clear_selection">Limpia la selección actual</string>
     <string name="description_icon_options">Abre el menu de opciones</string>
     <string name="deleter_all">Elimina todo</string>
+
+    <!-- signIn screen -->
+    <string name="label_number_phone">Numero de telefono</string>
+    <string name="hint_number_phone">55 55 55 55 55 55</string>
+    <string name="error_empty_phone_number">El numero es requerido</string>
+    <string name="error_length_phone_number">El numero es muy largo</string>
+    <string name="text_disclaimer_send_sms">Se enviara un SMS al numero proporcionado para verificar su numero de telefono</string>
+    <string name="text_input_phone_number">Introduce tu  numero de telefono</string>
+    <string name="title_sign_in_phone">Verifica  tu numero de telefono</string>
+    <string name="text_button_next">Siguiente</string>
+
 </resources>

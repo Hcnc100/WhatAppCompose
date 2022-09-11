@@ -50,7 +50,7 @@ private fun TextAcceptAndLogin(
 }
 
 @Composable
-fun ButtonSignIn(
+private fun ButtonSignIn(
     modifier: Modifier = Modifier,
     actionSignIn: () -> Unit
 ) {
