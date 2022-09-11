@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WhatsAppCompose</string>
+    <string name="description_arrow_back">Navegar a la pantalla anterior</string>
+    <string name="description_clear_selection">Limpia la selección actual</string>
+    <string name="description_icon_options">Abre el menu de opciones</string>
+    <string name="deleter_all">Elimina todo</string>
 </resources>
