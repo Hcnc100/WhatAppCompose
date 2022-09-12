@@ -20,6 +20,7 @@ import com.d34th.nullpointer.whatsappcompose.core.states.PropertySavableString
 fun EditableTextSavable(
     modifier: Modifier = Modifier,
     modifierText: Modifier = Modifier,
+    hintOwner: String = "",
     isEnabled: Boolean = true,
     singleLine: Boolean = false,
     valueProperty: PropertySavableString,
@@ -44,7 +45,13 @@ fun EditableTextSavable(
                 onValueChange = valueProperty::changeValue,
                 visualTransformation = visualTransformation,
                 label = { Text(stringResource(id = valueProperty.label)) },
-                placeholder = { Text(stringResource(id = valueProperty.hint)) }
+                placeholder = {
+                    if (hintOwner.isNotEmpty()) {
+                        Text(hintOwner)
+                    } else {
+                        Text(stringResource(id = valueProperty.hint))
+                    }
+                }
             )
             Row {
                 Text(

@@ -62,4 +62,8 @@ class PropertySavableString(
         errorValue = RESOURCE_DEFAULT
     }
 
+    fun setCustomError(newError: Int) {
+        errorValue = newError
+    }
+
 }

@@ -16,9 +16,9 @@ import com.hbb20.CountryCodePicker
 @Composable
 fun CountryCodePickerCompose(
     modifier: Modifier = Modifier,
-    changeCountryCode: (newCode: String) -> Unit,
     colorText: Color = MaterialTheme.colors.onBackground,
     colorBackground: Color = MaterialTheme.colors.background,
+    changeCountryCode: (newCode: String, nameCountry: String) -> Unit,
 ) {
     AndroidView(
         modifier = modifier,
@@ -44,10 +44,10 @@ private fun initCountryPicker(
     colorText: Color,
     colorBackground: Color,
     countryCodePicker: CountryCodePicker,
-    changeCountryCode: (newCode: String) -> Unit,
+    changeCountryCode: (newCode: String, nameCountry: String) -> Unit,
 ) = with(countryCodePicker) {
     // * set code number for defect
-    changeCountryCode(selectedCountryCodeWithPlus)
+    changeCountryCode(selectedCountryCodeWithPlus, selectedCountryNameCode)
 
     contentColor = colorText.toArgb()
     setDialogTextColor(colorText.toArgb())
@@ -55,6 +55,6 @@ private fun initCountryPicker(
 
     // * set listener for change country code
     setOnCountryChangeListener {
-        changeCountryCode(selectedCountryCodeWithPlus)
+        changeCountryCode(selectedCountryCodeWithPlus, selectedCountryNameCode)
     }
 }

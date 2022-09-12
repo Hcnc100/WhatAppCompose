@@ -16,5 +16,6 @@
     <string name="text_input_phone_number">Introduce tu  numero de telefono</string>
     <string name="title_sign_in_phone">Verifica  tu numero de telefono</string>
     <string name="text_button_next">Siguiente</string>
+    <string name="error_invalid_phone_number">El numero no es valido</string>
 
 </resources>

@@ -2,20 +2,22 @@ package com.d34th.nullpointer.whatsappcompose.ui.screens.phoneInputScreen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.d34th.nullpointer.whatsappcompose.R
 import com.d34th.nullpointer.whatsappcompose.core.states.PropertySavableString
-import com.d34th.nullpointer.whatsappcompose.core.utils.mobileNumberFilter
 import com.d34th.nullpointer.whatsappcompose.ui.screens.phoneInputScreen.viewModel.PhoneInputViewModel
 import com.d34th.nullpointer.whatsappcompose.ui.screens.share.CountryCodePickerCompose
 import com.d34th.nullpointer.whatsappcompose.ui.screens.share.EditableTextSavable
@@ -32,7 +34,7 @@ fun PhoneInputScreen(
         floatingActionButton = {
             ButtonNextSignIn(onClickNext = {
                 phoneInputViewModel.validatePhoneNumber()?.let {
-                    Timber.d("Full number: ${it}")
+                    Timber.d("Full number: $it")
                 }
             })
         }
@@ -46,8 +48,15 @@ fun PhoneInputScreen(
             TextDisclaimer(modifier = Modifier.padding(vertical = 20.dp))
             TextNumberInput(
                 changeCountryCode = phoneInputViewModel::changeCountryCode,
+                hintExampleNumber = phoneInputViewModel.examplePhoneNumber,
                 phoneNumberProperty = phoneInputViewModel.numberPhoneProperty,
-                modifier = Modifier.padding(horizontal = 10.dp, vertical = 20.dp)
+                modifier = Modifier.padding(horizontal = 10.dp, vertical = 20.dp),
+                phoneNumberTransforms = phoneInputViewModel.phoneNumberTransforms,
+                actionNext = {
+                    phoneInputViewModel.validatePhoneNumber()?.let {
+                        Timber.d("Full number: $it")
+                    }
+                }
             )
         }
     }
@@ -68,19 +77,30 @@ private fun ButtonNextSignIn(
 
 @Composable
 private fun TextNumberInput(
+    actionNext: () -> Unit,
+    hintExampleNumber: String,
     modifier: Modifier = Modifier,
     phoneNumberProperty: PropertySavableString,
-    changeCountryCode: (newCodeCountry: String) -> Unit
+    phoneNumberTransforms: VisualTransformation,
+    changeCountryCode: (newCode: String, countryNameCode: String) -> Unit,
 ) {
+
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
         CountryCodePickerCompose(changeCountryCode = changeCountryCode)
         Spacer(modifier = Modifier.size(10.dp))
         EditableTextSavable(
             singleLine = true,
+            hintOwner = hintExampleNumber,
             shape = RoundedCornerShape(15.dp),
             valueProperty = phoneNumberProperty,
-            visualTransformation = { mobileNumberFilter(it) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            visualTransformation = phoneNumberTransforms,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.NumberPassword,
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = { actionNext() }
+            )
         )
     }
 }
