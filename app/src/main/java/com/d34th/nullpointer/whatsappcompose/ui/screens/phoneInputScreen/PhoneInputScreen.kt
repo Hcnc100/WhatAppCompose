@@ -22,17 +22,23 @@ import com.d34th.nullpointer.whatsappcompose.ui.screens.phoneInputScreen.viewMod
 import com.d34th.nullpointer.whatsappcompose.ui.screens.share.CountryCodePickerCompose
 import com.d34th.nullpointer.whatsappcompose.ui.screens.share.EditableTextSavable
 import com.d34th.nullpointer.whatsappcompose.ui.screens.share.SimpleToolbar
+import com.d34th.nullpointer.whatsappcompose.ui.states.PhoneScreenState
+import com.d34th.nullpointer.whatsappcompose.ui.states.rememberPhoneScreenState
 import timber.log.Timber
 
 @Composable
 fun PhoneInputScreen(
-    phoneInputViewModel: PhoneInputViewModel = hiltViewModel()
+    phoneInputViewModel: PhoneInputViewModel = hiltViewModel(),
+    phoneScreenState: PhoneScreenState = rememberPhoneScreenState()
 ) {
+
     Scaffold(
+        scaffoldState = phoneScreenState.scaffoldState,
         floatingActionButtonPosition = FabPosition.Center,
         topBar = { SimpleToolbar(title = stringResource(R.string.title_sign_in_phone)) },
         floatingActionButton = {
             ButtonNextSignIn(onClickNext = {
+                phoneScreenState.hiddenKeyboard()
                 phoneInputViewModel.validatePhoneNumber()?.let {
                     Timber.d("Full number: $it")
                 }
@@ -53,6 +59,7 @@ fun PhoneInputScreen(
                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 20.dp),
                 phoneNumberTransforms = phoneInputViewModel.phoneNumberTransforms,
                 actionNext = {
+                    phoneScreenState.hiddenKeyboard()
                     phoneInputViewModel.validatePhoneNumber()?.let {
                         Timber.d("Full number: $it")
                     }
